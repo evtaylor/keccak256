@@ -20,9 +20,10 @@ module Digest
             0x000000000000800a, 0x800000008000000a, 0x8000000080008081,
             0x8000000000008080, 0x0000000080000001, 0x8000000080008008]
             
-    def initialize hash_size = 512
+    def initialize hash_size = 512, keccack = false
       @size = hash_size / 8
       @buffer = ''
+      @keccack = keccack
     end
     
     def << s
@@ -39,9 +40,10 @@ module Digest
     def finish
       s = Array.new 25, 0
       width = 200 - @size * 2
-      
+      padding = @keccack ? "\x01" :  "\x06"
+
       buffer = @buffer
-      buffer << "\x06" << "\0" * (width - buffer.size % width)
+      buffer << padding << "\0" * (width - buffer.size % width)
       buffer[-1] = (buffer[-1].ord | 0x80).chr
       
       0.step buffer.size - 1, width do |j|

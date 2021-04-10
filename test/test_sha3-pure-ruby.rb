@@ -42,6 +42,7 @@ describe Digest::SHA3 do
       cat_sha3 = 'd616607d3e4ba96a74f323cffc5f20a3c78e7cab8ecbdbb03b13fa8ffc9bf644'
       assert_equal Digest::SHA3.new(256).hexdigest('cat'), cat_sha3
     end
+
   end
   
   describe '224-bit' do
@@ -54,6 +55,19 @@ describe Digest::SHA3 do
       cat_sha3 = "447c857980c93d613b8bd6897c05bfd0621245139f021aaa6b57830a"
       assert_equal Digest::SHA3.new(224).hexdigest('cat'), cat_sha3
     end
+  end
+
+  describe 'Keccak padding' do
+    it 'should work when empty' do
+      empty_string_sha3 = 'c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+      assert_equal Digest::SHA3.new(256, true).hexdigest(''), empty_string_sha3
+    end
+
+    it 'should work with content' do
+      cat_sha3 = '52763589e772702fa7977a28b3cfb6ca534f0208a2b2d55f7558af664eac478a'
+      assert_equal Digest::SHA3.new(256, true).hexdigest('cat'), cat_sha3
+    end
+
   end
 end
     
