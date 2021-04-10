@@ -1,20 +1,17 @@
 # Pure Ruby SHA3 Gem
-[![Build Status](https://travis-ci.org/havenwood/sha3-pure-ruby.png?branch=master)](https://travis-ci.org/havenwood/sha3-pure-ruby)
 
-A pure Ruby implementation of SHA3.
+**Note:** This is a fork of [havenwood/sha3-pure-ruby](https://github.com/havenwood/sha3-pure-ruby) to add support for the (older) Keccak version this hashing algorithm which Ethereum uses.  
+
+> A pure Ruby implementation of SHA3.
 
 ## Installation
 
-Install it from the command line:
-
-```bash
-gem install sha3-pure-ruby
-```
-
-Or execute `bundle` after adding this line to your app's Gemfile:
+Execute `bundle` after adding this line to your app's Gemfile:
 
 ```ruby
-gem 'sha3-pure-ruby'
+git 'https://github.com/evtaylor/sha3-pure-ruby.git' do
+  gem 'sha3-pure-ruby'
+end
 ```
 
 ## Usage Examples
@@ -30,6 +27,11 @@ Digest::SHA3.new(224).hexdigest 'example 224-bit'
 
 Digest::SHA3.hexdigest 'another way', 224
 #=> "2e250b541367f0f86bbc6f701fb2bcd8e85c159497805580eae989e1"
+```
+### Keccak version
+```ruby
+Digest::SHA3.new(256, true).hexdigest 'cat'
+#=> "52763589e772702fa7977a28b3cfb6ca534f0208a2b2d55f7558af664eac478a"
 ```
 
 ## C-Extension Alternatives
