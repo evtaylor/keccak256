@@ -4,7 +4,7 @@ $:.unshift lib unless $:.include? lib
 
 Gem::Specification.new do |spec|
   spec.name          = 'keccak256'
-  spec.version       = '1.0.0'
+  spec.version       = '2.0.0'
   spec.authors       = ['havenwood', 'evtaylor']
   spec.email         = ['admin@evantaylor.ca']
   spec.description   = 'An implementation of Keccak256 (the hash function used by Ethereum) in pure Ruby.'
