@@ -1,8 +1,7 @@
 require 'digest'
-require_relative 'sha3-pure-ruby/version'
 
 module Digest
-  class SHA3 < Digest::Class    
+  class Keccak256 < Digest::Class
     PILN = [10,  7, 11, 17, 18,  3,  5, 16,
              8, 21, 24,  4, 15, 23, 19, 13,
             12,  2, 20, 14, 22,  9,  6,  1]
@@ -20,10 +19,9 @@ module Digest
             0x000000000000800a, 0x800000008000000a, 0x8000000080008081,
             0x8000000000008080, 0x0000000080000001, 0x8000000080008008]
             
-    def initialize hash_size = 512, keccack = false
-      @size = hash_size / 8
+    def initialize
+      @size = 256 / 8
       @buffer = ''
-      @keccack = keccack
     end
     
     def << s
@@ -40,7 +38,7 @@ module Digest
     def finish
       s = Array.new 25, 0
       width = 200 - @size * 2
-      padding = @keccack ? "\x01" :  "\x06"
+      padding = "\x01"
 
       buffer = @buffer
       buffer << padding << "\0" * (width - buffer.size % width)
